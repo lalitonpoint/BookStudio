@@ -1,0 +1,55 @@
+<h2 class="mb-4 text-center">Edit Category</h2>
+
+<div class="container">
+  <form method="POST" action="/admin/categories/edit/<%= data.category._id %>" enctype="multipart/form-data" class="border p-4 rounded shadow-sm bg-light">
+    <div class="row">
+      <!-- Type -->
+      <div class="form-group col-md-6 mb-3">
+        <label for="type">Type</label>
+        <select id="type" name="type" class="form-control">
+          <option value="studio" <%= data.category.type === 'studio' ? 'selected' : '' %>>Studio</option>
+          <option value="expertise" <%= data.category.type === 'expertise' ? 'selected' : '' %>>Expertise</option>
+        </select>
+      </div>
+
+      <!-- Category Name -->
+      <div class="form-group col-md-6 mb-3">
+        <label for="name">Category Name</label>
+        <input type="text" id="name" name="category" class="form-control" value="<%= data.category.category %>" required />
+      </div>
+
+      <!-- Current Image -->
+      <% if (data.category.categoryimage) { %>
+      <div class="form-group col-md-6 mb-3">
+        <label>Current Image:</label><br />
+        <img src="<%= data.category.categoryimage %>" alt="Current Category Image" class="img-thumbnail" width="150" />
+      </div>
+      <% } %>
+
+      <!-- Upload New Image -->
+      <div class="form-group col-md-6 mb-3">
+        <label for="categoryimage">Upload New Image (optional)</label>
+        <input type="file" id="categoryimage" name="categoryimage" class="form-control-file" />
+      </div>
+
+      <!-- Subcategories -->
+      <div class="form-group col-md-12 mb-3">
+        <label for="subcategories">Subcategories (comma separated)</label>
+        <input type="text" id="subcategories" name="subcategories" class="form-control" value="<%= data.category.subcategories.map(sub => sub.name).join(', ') %>" />
+      </div>
+    </div>
+
+    <div class="text-end mt-3">
+      <button type="submit" class="btn btn-primary btn-sm">Update</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  document.querySelector('form').addEventListener('submit', function (e) {
+    const nameInput = document.querySelector('input[name="name"]');
+    const subInput = document.querySelector('input[name="subcategories"]');
+    nameInput.value = nameInput.value.replace(/\s+/g, ' ').trim();
+    subInput.value = subInput.value.split(',').map(item => item.replace(/\s+/g, ' ').trim()).join(', ');
+  });
+</script>

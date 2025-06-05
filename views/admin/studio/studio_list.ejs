@@ -1,0 +1,72 @@
+<style>
+    .dt-paging{float: right;}
+    
+</style>
+<div class="container ">
+    <h2 class="mb-2">Studio List</h2>
+
+    <!-- Citizen List Table -->
+    <!-- <div class="card shadow-sm">
+        <div class="card-body"> -->
+          <!-- Include jQuery and DataTables CSS/JS -->
+
+          <table id="studioTable" class="display" width="100%">
+            <thead>
+              <tr>
+                <th>Registered Mobile</th>
+                <th>Owners</th>
+                <th>Owner Emails</th>
+                <!-- <th>ID Cards</th>    -->
+                <th>Business Name</th>
+                <th>Certificates</th>
+                <th>GST Number</th>
+                <th>PAN Card</th>
+                <th>FSSAI License</th>
+              </tr>
+            </thead>
+          </table>
+          
+</div>
+<script>
+$(document).ready(function () {
+    $('#studioTable').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: {
+        url: '/studio/studios',
+        type: 'POST'
+      },
+      columns: [
+        { data: 'registeredMobile' },
+        { 
+          data: 'owners',
+          render: function (data) {
+            return data.map(o => `${o.name} (${o.mobile})`).join('<br>');
+          }
+        },
+        {
+          data: 'ownerEmails',
+          render: function (data) {
+            return data.join('<br>');
+          }
+        },
+        // {
+        //   data: 'idCards',
+        //   render: function (data) {
+        //     return data.map(card => `<img src="${card}" width="50">`).join(' ');
+        //   }
+        // },
+        { data: 'businessName' },
+        {
+          data: 'registrationCirtificate',
+          render: function (data) {
+            return data.map(cert => `${cert.name}<br><img src="${cert.image}" width="50">`).join('<br><br>');
+          }
+        },
+        { data: 'gstNumber' },
+        { data: 'panCard' },
+        { data: 'fssaiLicense' }
+      ]
+    });
+  });
+</script>  

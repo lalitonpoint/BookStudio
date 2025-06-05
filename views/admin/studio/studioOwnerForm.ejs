@@ -1,0 +1,171 @@
+<style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .card {
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    .section-title {
+      font-weight: 600;
+      font-size: 1.25rem;
+    }
+  </style>
+
+<div class="container py-5">
+  <div class="card p-4">
+    <h2 class="text-center mb-4">Studio Owner Registration</h2>
+    <form action="/register" method="POST" enctype="multipart/form-data">
+
+      <!-- Registered Mobile -->
+      <div class="mb-3">
+        <label class="form-label">Registered Mobile (not editable)</label>
+        <input type="text" class="form-control" name="registeredMobile" value="9876543210" readonly required>
+      </div>
+
+      <!-- Owners -->
+      <div class="mb-3">
+        <label class="form-label section-title">Owner Name & Mobile</label>
+        <div id="owners">
+          <div class="row g-2 owner-group mb-2">
+            <div class="col-md-6">
+              <input type="text" name="ownerNames[]" class="form-control" placeholder="Owner Name" required>
+            </div>
+            <div class="col-md-6">
+              <input type="text" name="ownerMobiles[]" class="form-control" placeholder="Owner Mobile" required>
+            </div>
+          </div>
+        </div>
+        <div class="text-end">
+          <button type="button" class="btn btn-sm btn-outline-primary" onclick="addOwner()">+ Add Owner</button>
+        </div>
+      </div>
+
+      <!-- Emails -->
+      <div class="mb-3">
+        <label class="form-label section-title">Email Addresses</label>
+        <div id="emails">
+          <div class="input-group mb-2">
+            <input type="email" name="emails[]" class="form-control" placeholder="Email">
+          </div>
+        </div>
+        <div class="text-end">
+          <button type="button" class="btn btn-sm btn-outline-success" onclick="addEmail()">+ Add Email</button>
+        </div>
+      </div>
+
+      <!-- ID Cards -->
+      <div class="mb-3">
+        <label class="form-label section-title">ID Cards (with name and image)</label>
+        <div id="idCards">
+          <div class="row g-2 mb-2">
+            <div class="col-md-4">
+              <input type="text" name="idCardNames[]" class="form-control" placeholder="Name on ID Card">
+            </div>
+            <div class="col-md-4">
+              <input type="text" name="idCardNumbers[]" class="form-control" placeholder="ID Number (Aadhar/PAN)">
+            </div>
+            <div class="col-md-4">
+              <input type="file" name="idCardImages[]" class="form-control" accept="image/*">
+            </div>
+          </div>
+        </div>
+        <div class="text-end">
+          <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addIdCard()">+ Add ID Card</button>
+        </div>
+      </div>
+
+      <!-- Business Info -->
+      <div class="mb-3">
+        <label class="form-label section-title">Business Name</label>
+        <input type="text" name="businessName" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label section-title">Business Registration Types</label><br>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" name="registrationTypes[]" value="Sole Proprietorship">
+          <label class="form-check-label">Sole Proprietorship</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" name="registrationTypes[]" value="Partnership">
+          <label class="form-check-label">Partnership</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" name="registrationTypes[]" value="LLP">
+          <label class="form-check-label">LLP</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" name="registrationTypes[]" value="Private Limited Company">
+          <label class="form-check-label">Private Ltd</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" name="registrationTypes[]" value="MSME">
+          <label class="form-check-label">MSME</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" name="registrationTypes[]" value="Shop Act">
+          <label class="form-check-label">Shop Act</label>
+        </div>
+        <input type="text" name="registrationTypes[]" class="form-control mt-2" placeholder="Other (optional)">
+      </div>
+
+      <!-- Other Business Fields -->
+      <div class="mb-3">
+        <label class="form-label">GST Number (optional)</label>
+        <input type="text" name="gstNumber" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">PAN Card</label>
+        <input type="text" name="panCard" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">FSSAI License (optional)</label>
+        <input type="text" name="fssaiLicense" class="form-control">
+      </div>
+
+      <!-- Submit -->
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-success px-4">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<script>
+  function addOwner() {
+    const html = `
+      <div class="row g-2 owner-group mb-2">
+        <div class="col-md-6">
+          <input type="text" name="ownerNames[]" class="form-control" placeholder="Owner Name" required>
+        </div>
+        <div class="col-md-6">
+          <input type="text" name="ownerMobiles[]" class="form-control" placeholder="Owner Mobile" required>
+        </div>
+      </div>`;
+    document.getElementById('owners').insertAdjacentHTML('beforeend', html);
+  }
+
+  function addEmail() {
+    const html = `<div class="input-group mb-2"><input type="email" name="emails[]" class="form-control" placeholder="Email"></div>`;
+    document.getElementById('emails').insertAdjacentHTML('beforeend', html);
+  }
+
+  function addIdCard() {
+    const html = `
+      <div class="row g-2 mb-2">
+        <div class="col-md-4">
+          <input type="text" name="idCardNames[]" class="form-control" placeholder="Name on ID Card">
+        </div>
+        <div class="col-md-4">
+          <input type="text" name="idCardNumbers[]" class="form-control" placeholder="ID Number (Aadhar/PAN)">
+        </div>
+        <div class="col-md-4">
+          <input type="file" name="idCardImages[]" class="form-control" accept="image/*">
+        </div>
+      </div>`;
+    document.getElementById('idCards').insertAdjacentHTML('beforeend', html);
+  }
+</script>
+</body>
+</html>

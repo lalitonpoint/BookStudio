@@ -1,0 +1,51 @@
+<h2 class="mb-4 text-center">Add Category</h2>
+
+<div class="container">
+  <form method="POST" action="/admin/categories/add" enctype="multipart/form-data" class="border p-4 rounded shadow-sm bg-light">
+    <div class="row">
+      <!-- Type -->
+      <div class="form-group col-md-6 mb-3">
+        <label for="type">Type</label>
+        <select name="type" id="type" class="form-control" required>
+          <option value="studio">Studio</option>
+          <option value="expertise">Expertise</option>
+        </select>
+      </div>
+
+      <!-- Category Name -->
+      <div class="form-group col-md-6 mb-3">
+        <label for="category">Category Name</label>
+        <input type="text" id="category" name="category" class="form-control" required />
+      </div>
+
+      <!-- Category Image -->
+      <div class="form-group col-md-6 mb-3">
+        <label for="categoryimage" class="form-label">Category Image <strong class="text-danger">*</strong></label>
+        <input type="file" id="categoryimage" name="categoryimage" class="form-control image_view" accept="image/*" required />
+      </div>
+
+      <!-- Subcategories -->
+      <div class="form-group col-md-6 mb-3">
+        <label for="subInput">Subcategories (comma separated)</label>
+        <input type="text" id="subInput" name="subcategories" class="form-control" placeholder="e.g. Yoga, Fitness" required />
+      </div>
+    </div>
+
+    <div class="text-end mt-3">
+      <button type="submit" class="btn btn-success btn-sm">Submit</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  document.querySelector('form').addEventListener('submit', function (e) {
+    const nameInput = document.querySelector('input[name="category"]');
+    const subInput = document.querySelector('input[name="subcategories"]');
+
+    nameInput.value = nameInput.value.replace(/\s+/g, ' ').trim();
+    subInput.value = subInput.value
+      .split(',')
+      .map(item => item.replace(/\s+/g, ' ').trim())
+      .join(', ');
+  });
+</script>

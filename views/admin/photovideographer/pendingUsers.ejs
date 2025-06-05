@@ -1,0 +1,105 @@
+
+  <style>
+    table {
+      width: 95%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px 10px;
+      text-align: left;
+    }
+    th {
+      background: #eee;
+    }
+    button {
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+  </style>
+
+  <h1 style="text-align:center;">Pending Photographer/Videographer Approvals</h1>
+
+  <% if (users.length === 0) { %>
+    <p style="text-align:center;">No pending users found.</p>
+  <% } else { %>
+    <table id="pendingUsersTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Profession</th>
+          <th>Profession Type</th>
+          <th>Experience (Years)</th>
+          <th>Location</th>
+          <th>Created At</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(function(user) { %>
+          <tr id="user-<%= user._id %>">
+            <td><%= user.full_name || 'N/A' %></td>
+            <td><%= user.email || 'N/A' %></td>
+            <td><%= user.phone || 'N/A' %></td>
+            <td><%= user.profession || 'N/A' %></td>
+            <td><%= user.profession_type || 'N/A' %></td>
+            <td><%= user.experience_year || 'N/A' %></td>
+            <td><%= user.location || 'N/A' %></td>
+            <td><%= new Date(user.createdAt).toLocaleDateString('en-IN', { year:'numeric', month:'short', day:'numeric' }) %></td>
+            <td>
+              <button onclick="approveUser('<%= user._id %>')">Approve</button>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } %>
+
+  <script>
+    $(document).ready(function () {
+      $('#pendingUsersTable').DataTable({
+        pageLength: 10,
+        lengthChange: true,
+        searching: true,
+        ordering: true,
+        order: [[7, 'desc']], // Sort by Created At descending by default
+        columnDefs: [
+          { orderable: false, targets: 8 } // Disable ordering on Action column
+        ]
+      });
+    });
+  
+    async function approveUser(id) {
+      if (!confirm('Approve this user?')) return;
+  
+      try {
+        const res = await fetch('/api/admin/approve/' + id, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' }
+        });
+        if (!res.ok) {
+          alert('Approval failed');
+          return;
+        }
+        alert('User approved successfully');
+  
+        // Remove approved user row from DataTable
+        const table = $('#pendingUsersTable').DataTable();
+        const row = $('#user-' + id);
+        table.row(row).remove().draw();
+  
+        // Optional: reload if no users left
+        if (table.rows().count() === 0) {
+          location.reload();
+        }
+      } catch (err) {
+        alert('Error: ' + err.message);
+      }
+    }
+  </script>
+  
