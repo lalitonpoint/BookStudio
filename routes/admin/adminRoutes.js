@@ -18,6 +18,7 @@ router.get('/register', async (req, res) => {
         const ministries = await Ministry.find(); // Adjust the query as per your database structure
 
         // Render the register page with the ministries data
+
         res.render('admin/register', { ministries, error: null });
     } catch (err) {
         console.error('Error fetching ministries:', err);
@@ -28,10 +29,10 @@ router.get('/register', async (req, res) => {
 
 router.post('/register', async (req, res) => {
     try {
-        const { name, email, password, confirmPassword, address, phone} = req.body;
+        const { name, email, password, confirmPassword, address, phone } = req.body;
 
         // Validate input fields
-        if (!name || !email || !password || !confirmPassword || !address || !phone ) {
+        if (!name || !email || !password || !confirmPassword || !address || !phone) {
             return res.render('admin/register', { error: 'All fields are required' });
         }
 
@@ -54,7 +55,7 @@ router.post('/register', async (req, res) => {
 
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
-        
+
         // Create new admin
         const admin = new Admin({
             name,
@@ -133,7 +134,7 @@ router.get('/dashboard', async (req, res) => {
         const Usercount = await User.countDocuments();
 
 
-        
+
         // Render dashboard with counts
         res.render('layouts/main', {
             title: 'Admin Dashboard',
@@ -195,7 +196,7 @@ router.get('/citizen_list', async (req, res) => {
     }
 });
 
-  
+
 
 // Get all grievances for admin
 router.get('/grievances', async (req, res) => {
@@ -217,7 +218,7 @@ router.get('/grievance_details/:id', async (req, res) => {
     }
 
     const grievanceId = req.params.id;
-    const adminLanguage=req.session.language;
+    const adminLanguage = req.session.language;
 
     // Validate if the ID is a valid MongoDB ObjectId
     if (!mongoose.Types.ObjectId.isValid(grievanceId)) {
@@ -230,7 +231,7 @@ router.get('/grievance_details/:id', async (req, res) => {
             errorTitle: 'Grievance Not Found',
             errorMessage: 'The requested grievance does not exist.',
             redirectUrl: '/admin/grievance_list',
-            
+
         });
     }
 
@@ -256,7 +257,7 @@ router.get('/grievance_details/:id', async (req, res) => {
                 redirectUrl: '/admin/grievance_list',
             });
         }
-       
+
 
         // Log the original description
         console.log('Original Description:', grievance.description);
@@ -268,8 +269,8 @@ router.get('/grievance_details/:id', async (req, res) => {
             if (grievance.description) fieldsToTranslate.push(grievance.description);
             if (grievance.nature) fieldsToTranslate.push(grievance.nature);
             if (grievance.moreDescription) fieldsToTranslate.push(grievance.moreDescription);
-        console.log('fieldsToTranslate',fieldsToTranslate);
-        console.log(adminLanguage);
+            console.log('fieldsToTranslate', fieldsToTranslate);
+            console.log(adminLanguage);
             // If no fields are available, skip translation
             if (fieldsToTranslate.length === 0) {
                 // grievance.description = 'अनुवाद उपलब्ध नहीं है';
@@ -278,19 +279,19 @@ router.get('/grievance_details/:id', async (req, res) => {
             } else {
                 // Join fields with `_` separator for API request
                 const textToTranslate = fieldsToTranslate.join(' # ');
-        
+
                 const response = await axios.post(TRANSLATE_API_URL, {
                     content: textToTranslate,
                     target_language: adminLanguage
                 });
-        
+
                 console.log('Original:', textToTranslate);
                 console.log('Translation API Response:', response.data);
-        
+
                 if (response.data && response.data.translated_content) {
                     // Split the translated text based on `_`
                     const translatedText = response.data.translated_content.split('#');
-        
+
                     // Assign translated values in the same order they were sent
                     let index = 0;
                     if (grievance.description) grievance.translated_description = translatedText[index++] || grievance.description;
@@ -308,8 +309,8 @@ router.get('/grievance_details/:id', async (req, res) => {
             // grievance.nature = 'अनुवाद उपलब्ध नहीं है';
             // grievance.moreDescription = 'अनुवाद उपलब्ध नहीं है';
         }
-        
-        
+
+
 
         // Render the grievance details page
         res.render('layouts/main', {
@@ -319,7 +320,7 @@ router.get('/grievance_details/:id', async (req, res) => {
             adminLanguage: adminLanguage,
             body: '../admin/grievance_details',
             grievance, // Updated grievance with translated description
-            loading: false, 
+            loading: false,
         });
     } catch (err) {
         console.error('Error fetching grievance:', err.message);
@@ -372,10 +373,10 @@ router.get('/grievance_list', async (req, res) => {
 
     try {
         const grievances = await Grievance.find({ assignedTo: req.session.adminEmail })
-        
-    .populate('submittedBy', 'name email') // Fetch user details
-    .sort({ createdAt: -1 })
-    .exec();
+
+            .populate('submittedBy', 'name email') // Fetch user details
+            .sort({ createdAt: -1 })
+            .exec();
 
         res.render('layouts/main', {
             title: 'Manage Grievances',
@@ -415,65 +416,65 @@ router.get('/logout', (req, res) => {
 
 router.post('/send-query', async (req, res) => {
     const { userQuery, lang } = req.body; // Extract the userQuery from the request body
-  
+
     if (!userQuery || !userQuery.trim()) {
-      return res.status(400).send('Invalid query. Please provide a valid input.');
+        return res.status(400).send('Invalid query. Please provide a valid input.');
     }
-  
+
     try {
-      // Make a POST request to the external API
-      const response = await axios.post(
-        'http://3.108.40.230/bedrock_lang_base.php',
-        { user_query: userQuery, lang: lang ? lang : 'ENGLISH' }, // Send userQuery in the payload
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-  
-      // Send the external API's response back to the frontend
-      res.status(200).send(response.data);
+        // Make a POST request to the external API
+        const response = await axios.post(
+            'http://3.108.40.230/bedrock_lang_base.php',
+            { user_query: userQuery, lang: lang ? lang : 'ENGLISH' }, // Send userQuery in the payload
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+
+        // Send the external API's response back to the frontend
+        res.status(200).send(response.data);
     } catch (error) {
-      console.error('Error while communicating with the external API:', error.message);
-      res.status(500).send('Failed to process the query. Please try again.');
+        console.error('Error while communicating with the external API:', error.message);
+        res.status(500).send('Failed to process the query. Please try again.');
     }
-  });
+});
 
 
-  router.post('/analyze', async (req, res) => {
+router.post('/analyze', async (req, res) => {
     const { text } = req.body;
-  
+
     if (!text) {
-      return res.status(400).json({ success: false, message: 'Text is required' });
+        return res.status(400).json({ success: false, message: 'Text is required' });
     }
-  
+
     try {
-      // Call the external API
-      const response = await axios.post(
-        'http://13.202.207.48:5000/api/analyze',
-        { text }, // Payload
-        {
-          headers: {
-            'Content-Type': 'application/json'
-          },
-        }
-      );
-  
-      // Respond with API result
-      res.status(200).json({ success: true, data: response.data });
+        // Call the external API
+        const response = await axios.post(
+            'http://13.202.207.48:5000/api/analyze',
+            { text }, // Payload
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }
+        );
+
+        // Respond with API result
+        res.status(200).json({ success: true, data: response.data });
     } catch (error) {
-      console.error('Error:', error.response ? error.response.data : error.message);
-      res.status(500).json({
-        success: false,
-        message: 'Failed to analyze text',
-        error: error.response ? error.response.data : error.message,
-      });
+        console.error('Error:', error.response ? error.response.data : error.message);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to analyze text',
+            error: error.response ? error.response.data : error.message,
+        });
     }
-  });
+});
 
 
-  router.post('/translate', async (req, res) => {
+router.post('/translate', async (req, res) => {
     let { text, userLang } = req.body;  // Destructure userLang as let for modification
 
     try {
