@@ -5,21 +5,10 @@ const User = require('./models/api/User');
 const auth = require('./middleware/auth');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const connectDB = require('./config/db'); 
-const adminRoutes = require('./routes/admin/adminRoutes'); // Adjust path as needed
-const userRoutes = require('./routes/api/userRoutes');
-const grievanceRoutes = require('./routes/api/grievanceRoutes');
-const categoryRoutes = require('./routes/api/categoryRoutes');
-const eventManagerRoutes = require('./routes/admin/eventManager');
-const reportsManager = require('./routes/admin/reportsManager');
-const studioOwnerRoutes = require('./routes/admin/studioOwnerRoutes');
-const admincategoryRoutes = require('./routes/admin/categoryRoutes');
-const photoVideographerRoutes = require('./routes/admin/photoVideographerRoutes');
-const studioRoutes = require('./routes/api/studioRoutes');
-const apiphotoVideographerRoutes = require('./routes/api/photoVideographerRoutes');
-
+const connectDB = require('./config/db');
 const path = require('path');
 const session = require('express-session');  // Import express-session
+const indexRoutes = require('./indexRoutes');  // Import express-session
 const app = express();
 require('dotenv').config();
 
@@ -50,20 +39,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/admin', adminRoutes); // Admin routes under `admin`
-app.use('/api/users', userRoutes);
-app.use('/studio/', studioOwnerRoutes);
-app.use('/photoVideographer/', photoVideographerRoutes);
-app.use('/admin/categories', admincategoryRoutes);
-
-
-// API Routes
-app.use('/api/grievances', grievanceRoutes);
-app.use('/api/studios', studioRoutes);
-app.use('/api/category', categoryRoutes);
-app.use('/events/', eventManagerRoutes);
-app.use('/reports/', reportsManager);
-app.use('/api/photovideographer', apiphotoVideographerRoutes);
+app.use('/', indexRoutes);
 
 const PORT = 3500;
 app.listen(PORT, () => {
