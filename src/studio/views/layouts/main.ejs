@@ -26,23 +26,213 @@
 </head>
 
 <body>
-    <%- include('../partials/navbar') %>
+    <header id="mainHeader">
+        <div class="container-fluid">
+            <div class="topHeadder">
+                <div class="logo">
+                    <a href="javaScript:Void(0)">
+                        <img class="img-fluid" src="/image/studio/loginLogo.png" alt="">
+                    </a>
+                </div>
 
-        <div class="mainSection">
-            <div class="sideMenu">
-                <%- include('../partials/sidebar') %>
+                <div class="loginMenu">
+                    <div class="mobileMenu d-none">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
 
+                    <div class="notification">
+                        <i class="fa-regular fa-bell"></i>
+                    </div>
+
+                    <ul class="loginSection">
+                        <li class="position-relative profileContentOption">
+                            <img class="img-fluid loginHome" src="/image/studio/home.png" alt="">
+                            <p>Gustavo Levin</p>
+                            <div class="down">
+                                <i class="fa-solid fa-angle-down"></i></button>
+                            </div>
+
+                            <ul class="loginMenuList">
+                                <li>
+                                    <a href="javaScript:void(0)"><i class="fa-solid fa-user"></i> My Profile</a>
+                                </li>
+                                <li>
+                                    <a href="javaScript:void(0)"><i class="fa-brands fa-hire-a-helper"></i> Help</a>
+                                </li>
+                                <li>
+                                    <a href="javaScript:void(0)"><i class="fa-solid fa-handshake"></i> Terms & Conditions</a>
+                                </li>
+                                <li>
+                                    <a href="javaScript:void(0)"><i class="fa-solid fa-fingerprint"></i> Privacy Policy</a>
+                                </li>
+                                <li>
+                                    <a href="javaScript:void(0)"><i class="fa-solid fa-question"></i> About Us</a>
+                                </li>
+                                <li class="logOut">
+                                    <a href="javaScript:void(0)"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <%- body %>
+        </div>
+    </header>
+
+    <div class="mainSection">
+        <div class="sideMenu">
+            <ul class="listMenu">
+                <li>
+                    <a href="javaScript:void(0)"><i class="fa-solid fa-photo-film"></i> Studio Details</a>
+                </li>
+                <li>
+                    <a class="active" href="javaScript:void(0)"><i class="fa-solid fa-user"></i> Profile</a>
+                </li>
+                <li>
+                    <a href="javaScript:void(0)"><i class="fa-regular fa-calendar-days"></i> Calendar</a>
+                </li>
+                <li>
+                    <a href="javaScript:void(0)"><i class="fa-solid fa-thumbs-up"></i> Subscription</a>
+                </li>
+                <li>
+                    <a href="javaScript:void(0)"><i class="fa-solid fa-reply-all"></i> Feedbacks</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="rightContent">
+            <section class="profileContent">
+                <div class="profileMainHedding">
+                    <h5>Complete Profile</h5>
+                    <p>(For Admin Access Only ; Not visible to users/Customers)</p>
+                </div>
+                <div class="borderPro"></div>
+
+                <!-- ------------------- This is all pages border part Start---------------->
+
+                <div class="borderActivePage">
+                    <div class="firstActive"></div>
+                    <div class="secendActive d-none"></div>
+                    <div class="thirdActive d-none"></div>
+                </div>
+
+                <!-- ------------------- This is all pages border part end -------------- -->
+
+                <form>
+                    <div class="row">
+                        <div class="col-sm-6 form-group mb-3">
+                            <label for="">Registered Mobile Number (Studio Owner)*</label>
+                            <input type="tel" class="form-control" placeholder="Mobile Number" name="mobile"
+                                pattern="[0-9]*" inputmode="numeric">
+                        </div>
+                        <div class="col-sm-6 form-group mb-3">
+                            <label for="">Studio Owners Name*</label>
+                            <input type="text" class="form-control" placeholder="Studio Owners Name" name="">
+                        </div>
 
 
+                        <div class="col-sm-6 form-group mb-3">
+                            <label for="">Studio Owners Email*</label>
+                            <div class="ownerAddSection">
+                                <input type="text" class="form-control" placeholder="Studio Owners Email" name="">
+                                <button type="button" class="addOnOwners" data-bs-toggle="modal" data-bs-target="#myModal">Add More</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 form-group mb-3">
+                            <label for="">Upload Personal ID (Aadhar/PAN)*</label>
+                            <input type="file" class="form-control" placeholder="Upload here" name="">
+                        </div>
+
+
+                        <div class="col-sm-6 form-group mb-3">
+                            <label for="">GST Number (If Applicable)</label>
+                            <input type="text" class="form-control" placeholder="GST Number" name="">
+                        </div>
+                        <div class="col-sm-6 form-group mb-3">
+                            <label for="">PAN Card*</label>
+                            <input type="text" class="form-control" placeholder="PAN Card Number" name="">
+                        </div>
+                        <div class="col-sm-6 form-group mb-3">
+                            <label for="">FSSAI License (if you have cafe inside/offer food/supplements)</label>
+                            <input type="text" class="form-control" placeholder="FSSAI License" name="">
+                        </div>
+
+
+                        <div class="col-sm-6 form-group mb-3">
+                            <label for="">Business Name*</label>
+                            <input type="text" class="form-control" placeholder="Studio Owners Name" name="pswd">
+                        </div>
+                        <div class="col-sm-12 form-group mb-3">
+                            <label for="">Business Registration Certificate</label>
+                            <textarea class="form-control" id="" name="" rows="4"
+                                placeholder="eg. ‘MSME or Shop Act or any other applicable license’"></textarea>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="text-end">
+                                <a class="profileBtn" href="javaScript:void(0)">Back</a>
+                                <a class="profileBtn ms-3 profileNextBtn" href="javaScript:void(0)">Next</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </section>
         </div>
 
 
 
 
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+        <!-- The Modal -->
+        <div class="modal" id="myModal">
+            <div class="modal-dialog modal-md modalSizeAdmin modal-dialog-centered">
+                <div class="modal-content" style="border: 0; border-radius: 10px;">
+                <!-- Modal Header -->
+                    <!-- <div class="modal-header">
+                        <h4 class="modal-title">Modal Heading</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div> -->
+
+                    <!-- Modal body -->
+                    <div class="modal-body p-0">
+                        <div class="topModal">
+                            <img class="img-fluid" src="/image/studio/icon-park-solid_success.svg" alt="">
+                        </div>
+                        <div class="modalContent">
+                            <h3>Submitted to Admin</h3>
+                            <p>Your details is successfully submitted to the admin</p>
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    </div> -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.addEventListener('scroll', function () {
+            const header = document.getElementById('mainHeader');
+            if (window.scrollY > 80) {
+            header.classList.add('stickyTopHeader');
+            } else {
+            header.classList.remove('stickyTopHeader');
+            }
+        });
+    </script>
+    
 </body>
 
 </html>

@@ -18,6 +18,8 @@
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.18.1",
     "jquery-toast-plugin": "^1.3.2",
-    "mongoose": "^8.15.2"
+    "moment": "^2.30.1",
+    "mongoose": "^8.15.2",
+    "multiparty": "^4.2.3"
   }
 }

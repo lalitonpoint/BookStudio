@@ -34,7 +34,12 @@ input[type=number] {
     align-items: center;
     padding: 10px 0px;
 }
-
+.stickyTopHeader{
+    position: sticky;
+    top: 0;
+    background: #fff;
+    box-shadow: 0px 0px 10px 0px #ff8e29;
+}
 .loginMenu{
     display: flex;
     gap: 10px;
@@ -46,7 +51,7 @@ ul.loginSection{
     min-width: 200px;
 }
 
-ul.loginSection li {
+ul.loginSection>li {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -60,6 +65,45 @@ ul.loginSection li {
 .down{
     margin-left: auto;
 }
+
+.loginMenuList {
+    min-width: 200px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px 0px #ddd;
+    position: absolute;
+    top: 33px;
+    right: 0px;
+    border-radius: 10px;
+    display: none;
+}
+
+.profileContentOption:hover .loginMenuList{
+    display: block;
+}
+
+.logOut a{
+    color: #E6001F !important;
+}
+.loginMenuList a {
+    font-variant: diagonal-fractions;
+    display: block;
+    margin-bottom: 3px;
+    padding: 5px 10px;
+    font-size: 12px;
+    color: #001F65;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.loginMenuList a:hover, .loginMenuList a.active {
+    background: linear-gradient(90deg, rgba(64, 122, 255, 1) 0%, rgba(212, 229, 255, 1) 100%);
+    color: #fff;
+}
+
+.loginMenuList a>i{
+    margin-right: 5px;
+}
+
 .notification, .mobileMenu {
     height: 38px;
     width: 38px;
@@ -104,6 +148,41 @@ ul.loginSection li {
     color:#062F8C
 }
 
+.topModal {
+    text-align: center;
+    background: #35C28D;
+    height: 150px;
+    display: flex;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.topModal img{
+    margin: auto;
+    width: 25%;
+}
+
+.modalContent {
+    padding: 50px 30px;
+    text-align: center;
+}
+
+.modalContent h3 {
+    font-family: 'Bricolage Grotesque';
+    font-weight: 700;
+    font-size: 22px;
+    margin-bottom: 5px;
+    color: #303030;
+}
+
+.modalContent p {
+    color: rgba(45, 45, 45, 0.62);
+    font-weight: 500;
+    font-family: 'DM Sans';
+}
+
+.modalSizeAdmin{
+    max-width:330px
+}
 
 
 
