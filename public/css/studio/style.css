@@ -1,0 +1,134 @@
+*,body,h1,h2,h3,h4,h5,h6,p,ul{
+    padding: 0;
+    margin: 0;
+    font-family: 'DM Sans';
+    box-sizing: border-box;
+}
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ✅ Remove arrows in Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+input[type="checkbox"],input[type="radio"] {
+    accent-color: #ef5508;
+}
+@media (min-width: 991px) {
+    .container-fluid {
+        padding: 0px 25px !important;
+    }
+}
+.row{
+    margin: 0;
+}
+
+/* ------------------------- Prolile Section Start ------------------------ */
+
+.profileContent{
+  padding: 15px 10px;
+  background-color: #fff;
+  border-radius: 12px;
+}
+
+.profileMainHedding h5{
+  font-size: 23px;
+  font-weight: 700;
+  font-family: Bricolage Grotesque;
+  color: #222222;
+}
+
+.profileMainHedding p{
+  font-size: 14px;
+  font-weight: 700;
+  font-family: Bricolage Grotesque;
+  color: #222222;
+}
+.borderPro{
+  border: 1px solid #F2F2F2;
+  margin-top: 7px;
+}
+
+.borderActivePage{
+  background-color: #D9D9D9;
+  height: 5px;
+  margin: 10px 0;
+  display: flex;
+}
+
+.borderActivePage>div{
+  border: 2px solid #062F8C;
+  width: 33.33%;
+  background-color: #062F8C;
+}
+label{
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+}
+.form-control {
+  background-color: #F6F6F6;
+  border: 0;
+  font-size: 14px;
+  color: hsl(0deg 0% 13% / 60%);
+}
+
+.profileBtn {
+    font-size: 12px;
+    padding: 7px 20px;
+    text-align: center;
+    background: rgba(34, 34, 34, 0.1);
+    min-width: 130px;
+    display: inline-block;
+    border-radius: 10px;
+    font-weight: 600;
+    border: 1px solid;
+    border-color: rgba(34, 34, 34, 0.1);
+    color: #222;
+}
+
+.profileNextBtn{
+  background: rgba(239, 85, 8, 1);
+   border-color: rgba(239, 85, 8, 1);
+   color: #fff;
+}
+
+.uploadProfile{
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.uploadProfile img{
+  width: 65px;
+  height: 55px;
+  background-color: rgba(34, 34, 34, 0.1);
+  object-fit: contain;
+  border-radius: 50%;
+}
+.rateSelect{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.addOnOwners{
+  border: 1px solid rgba(34, 34, 34, 0.1);
+  color: #ef5508;
+}
+.ownerAddSection{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.addOnOwners {
+    border: 1px solid rgba(34, 34, 34, 0.1);
+    color: #ef5508;
+    width: 23%;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 13px;
+    margin-left: 10px;
+}
+/* -------------------------- Prolile Section End -------------------------- */

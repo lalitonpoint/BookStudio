@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>OTP Verification</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700&family=DM+Sans:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/studio/style.css">
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="loginPadding otpBoxSection">
+                <div class="logo">
+                    <img class="img-fluid" src="/image/studio/loginLogo.png" alt="Bookstudio Logo">
+                </div>
+
+                <!-- OTP Message -->
+                <div class="otpImgSection">
+                    <div class="loginCotent">
+                        <h3>OTP Verification</h3>
+                        <p>Enter the 6-digit OTP sent to <span class="numberLogin mobEmailInput">Loading... <i
+                                    class="fa-solid fa-pencil"></i></span></p>
+                    </div>
+
+                    <!-- OTP Input -->
+                    <form id="verifyForm">
+                        <div class="otp-input-fields">
+                            <!-- Use unique name for each input -->
+                            <input type="text" class="otp__digit" maxlength="1" name="digit_1" inputmode="numeric">
+                            <input type="text" class="otp__digit" maxlength="1" name="digit_2" inputmode="numeric">
+                            <input type="text" class="otp__digit" maxlength="1" name="digit_3" inputmode="numeric">
+                            <input type="text" class="otp__digit" maxlength="1" name="digit_4" inputmode="numeric">
+                            <input type="text" class="otp__digit" maxlength="1" name="digit_5" inputmode="numeric">
+                            <input type="text" class="otp__digit" maxlength="1" name="digit_6" inputmode="numeric">
+                        </div>
+                        <button type="submit" class="loginBtn verification">Verify</button>
+                    </form>
+
+                    <!-- Resend Section -->
+                    <div class="createAcount">
+                        <div class="resendOtp">
+                            <p>Resend OTP in <span class="createTittle">60s</span></p>
+                        </div>
+                        <button class="resendBtn d-none" onclick="handleResend()">Resend OTP</button>
+                    </div>
+                </div>
+
+                <p class="text-center loginProcess">Having trouble in Registration Process? Don’t worry</p>
+                <p class="text-center loginContect">Contact us and we’ll assist you</p>
+            </div>
+        </div>
+
+        <!-- Right Side Image -->
+        <div class="col-md-7 d-none d-md-block p-0 position-relative">
+            <img class="img-fluid otpImgSection" src="/image/studio/Frame.png" alt="OTP Background">
+            <div class="loginBookStudio">
+                <h3>Welcome to Bookstudio</h3>
+                <p>Your Studio Hunt Ends here! Dance, Fitness, Music, Art, Podcast, Shoots</p>
+                <p>Bonus! Find the right photographer/ Videographer for your shoots.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            const $inputs = $('.otp__digit');
+            const $timerText = $('.createTittle');
+            const $resendBtn = $('.resendBtn');
+            const $resendSection = $('.resendOtp');
+            const $mobEmailInput = $('.mobEmailInput');
+
+            // Set mob/email from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const mobEmail = urlParams.get('mobEmail') || 'your@email.com';
+            $mobEmailInput.text(mobEmail);
+
+            // Auto move between inputs
+            $inputs.on('keyup', function (e) {
+                const $this = $(this);
+                const value = $this.val();
+
+                if (value.length === 1 && e.key !== 'Backspace') {
+                    $this.next('.otp__digit').focus();
+                } else if (e.key === 'Backspace' && !value) {
+                    $this.prev('.otp__digit').focus();
+                }
+
+                const otp = $inputs.map((_, el) => el.value).get().join('');
+                if (otp.length === 6) {
+                    submitOtp(otp);
+                }
+            });
+
+            // Paste entire OTP
+            $inputs.first().on('paste', function (e) {
+                const pasteData = (e.originalEvent || e).clipboardData.getData('text').trim();
+                if (/^\d{6}$/.test(pasteData)) {
+                    $inputs.each((i, el) => el.value = pasteData[i]);
+                    $inputs.last().focus();
+                } else {
+                    toastr.error('Please paste a 6-digit OTP.', 'Invalid Paste');
+                }
+                e.preventDefault();
+            });
+
+            // Start countdown
+            let timer = 60;
+            const interval = setInterval(() => {
+                $timerText.text(`${timer--}s`);
+                if (timer < 0) {
+                    clearInterval(interval);
+                    $resendSection.addClass('d-none');
+                    $resendBtn.removeClass('d-none');
+                }
+            }, 1000);
+        });
+
+        function getMobEmailInfo() {
+            const mobEmail = new URLSearchParams(window.location.search).get('mobEmail') || '';
+            const isMobile = /^\d{10}$/.test(mobEmail);
+            return {
+                email: isMobile ? '' : mobEmail,
+                mobile: isMobile ? mobEmail : '',
+                isUsingMobile: isMobile
+            };
+        }
+
+        function submitOtp(otp) {
+            const { email, mobile, isUsingMobile } = getMobEmailInfo();
+
+            $.ajax({
+                url: '/studio/checkLogin',
+                method: 'POST',
+                data: { email, mobile, otp, isUsingMobile },
+                success: function (data) {
+                    console.log('data', data.success)
+                    if (data.success) {
+                        alert('OTP Verified Successfully');
+                        window.location.href = data.redirectUrl;
+                    } else {
+                        toastr.error(data.message || 'Invalid OTP');
+                    }
+                },
+                error: err => {
+                    toastr.error('Verification failed');
+                    console.error(err);
+                }
+            });
+        }
+
+        function handleResend() {
+            window.location.reload;
+        }
+        $('#verifyForm').on('submit', function () {
+
+            const otp = 123456;
+            submitOtp(otp)
+
+
+        })
+    </script>
+</body>
+
+</html>

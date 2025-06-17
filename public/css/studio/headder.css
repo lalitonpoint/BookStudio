@@ -1,0 +1,179 @@
+*,body,h1,h2,h3,h4,h5,h6,p,ul{
+    padding: 0;
+    margin: 0;
+    font-family: 'DM Sans';
+    box-sizing: border-box;
+}
+@media (min-width: 991px) {
+    .container-fluid {
+        padding: 0px 25px !important;
+    }
+}
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+/* ✅ Remove arrows in Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+.row{
+    margin: 0;
+}
+
+.topHeadder{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0px;
+}
+
+.loginMenu{
+    display: flex;
+    gap: 10px;
+}
+
+ul.loginSection{
+    background: #F6F7F9;
+    border-radius: 38px;
+    min-width: 200px;
+}
+
+ul.loginSection li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #F6F7F9;
+    padding: 5px 10px;
+    border-radius: 38px;
+}
+.loginHome{
+    width: 15px;
+}
+.down{
+    margin-left: auto;
+}
+.notification, .mobileMenu {
+    height: 38px;
+    width: 38px;
+    border-radius: 50%;
+    line-height: 38px;
+    text-align: center;
+    background: #F6F7F9;
+}
+.logo .img-fluid {
+    height: 55px;
+}
+.mainSection {
+    display: flex;
+}
+.sideMenu{
+    width: 220px;
+    min-width: 220px;
+    padding: 15px 0;
+}
+
+.rightContent{
+    min-height: calc(100vh - 60px);
+    width: calc(100% - 220px);
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.listMenu>li>a {
+    display: block;
+    padding: 8px 10px 8px 20px;
+    margin-bottom: 3px;
+    font-size: 14px;
+    color: #95949B;
+}
+
+.listMenu>li>a>i{
+    margin-right: 10px
+}
+
+.listMenu>li>a:hover, .listMenu>li>a.active{
+    background: linear-gradient(90deg,rgba(64, 122, 255, 1) 0%, rgba(212, 229, 255, 1) 100%);
+    color:#062F8C
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (min-width:991px) {
+    .container-fluid{
+        padding: 0px 70px;
+    }
+}
