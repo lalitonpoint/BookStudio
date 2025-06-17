@@ -8,6 +8,7 @@ const expressLayouts = require('express-ejs-layouts');
 
 
 const adminRoutes = require('./src/admin/routes/admin.routes');
+const LoginCtrl = require('./src/studio/controllers/loginController');
 const studioRoutes = require('./src/studio/routes/studioRoutes');
 
 
@@ -46,6 +47,9 @@ app.use((req, res, next) => {
 
 app.use('/admin', adminRoutes);
 app.use('/studio', studioRoutes);
-const PORT = process.env.PORT || 3000;
+// Catch-all route for 404 - must be last route
+
+
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on http://localhost:%s`, PORT));
 

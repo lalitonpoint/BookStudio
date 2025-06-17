@@ -1,15 +1,22 @@
 const User = require('../models/userModel')
 
 const loginPage = (req, res) => {
-    res.render('pages/login');
+    res.render('pages/login', { title: 'OnPoints Admin ', layout: false });
+    // res.render('pages/login/login', { title: 'OnPoints Admin ', layout: false });
+
 }
 
 const createAccountPage = (req, res) => {
-    res.render('pages/createAccount');
+    res.render('pages/createAccount', { title: 'OnPoints Admin ', layout: false });
 }
 
+
+const notFound = (req, res) => {
+    res.render('pages/404', { title: 'OnPoints Admin ', layout: false });
+};
+
 const otpPage = (req, res) => {
-    res.render('pages/otp');
+    res.render('pages/otp', { title: 'OnPoints Admin ', layout: false });
 }
 const addUser = async (req, res) => {
     try {
@@ -29,7 +36,7 @@ const addUser = async (req, res) => {
         }
 
         if (existingUser) {
-            return res.status(400).json({ success: false, message: 'User already exists' });
+            return res.status(200).json({ success: false, message: 'User already exists' });
         }
 
 
@@ -79,7 +86,7 @@ const checkLogin = async (req, res) => {
         const existingUser = await User.findOne(query);
 
         if (!existingUser) {
-            return res.status(404).json({
+            return res.status(200).json({
                 success: false,
                 message: 'User does not exist.',
             });
@@ -110,7 +117,7 @@ const checkLogin = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: 'Login successful.',
-            redirectUrl: 'dashboard',
+            redirectUrl: 'profile',
         });
 
     } catch (error) {
@@ -123,5 +130,5 @@ const checkLogin = async (req, res) => {
 };
 
 module.exports = {
-    loginPage, createAccountPage, addUser, otpPage, checkLogin
+    loginPage, createAccountPage, addUser, otpPage, checkLogin, notFound
 }
